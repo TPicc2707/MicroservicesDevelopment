@@ -1,17 +1,32 @@
 version: '3.4'
 
 services:
-  person.api:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "80"
-  
   personmicroservicesdb:
     container_name:  personmicroservicesdb
     environment:
-      SA_PASSWORD: "micro12345678"
+      SA_PASSWORD: "Micro12345678"
       ACCEPT_EULA: "Y"
     restart: always
     ports:
-     - "1432:1433"
+     - "1434:1433"
+
+  portainer:
+    container_name: portainer
+    restart: always
+    ports:
+      - "8080:80"
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+  person.api:
+    container_name: person.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:PersonMicroServicesConnectionString=Server=personmicroservicesdb;Database=PersonMicroservicesDb;User Id=sa;Password=Micro12345678;"
+    depends_on:
+      - personmicroservicesdb
+    ports:
+      - "8000:80"
+ 

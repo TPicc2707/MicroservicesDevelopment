@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Person.Application.Features.People.Queries
 {
-    public class GetPersonByLastNameListQueryHandler : IRequestHandler<GetPersonListQuery, List<PersonViewModel>>
+    public class GetPersonByLastNameListQueryHandler : IRequestHandler<GetPersonByLastNameListQuery, List<PersonViewModel>>
     {
         private readonly IPersonRepository _personRepository;
         private readonly IMapper _mapper;
@@ -21,7 +21,7 @@ namespace Person.Application.Features.People.Queries
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<List<PersonViewModel>> Handle(GetPersonListQuery request, CancellationToken cancellationToken)
+        public async Task<List<PersonViewModel>> Handle(GetPersonByLastNameListQuery request, CancellationToken cancellationToken)
         {
             var people = await _personRepository.GetPeopleByLastName(request.LastName);
 

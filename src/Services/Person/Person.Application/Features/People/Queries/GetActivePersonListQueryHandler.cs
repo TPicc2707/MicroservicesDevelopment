@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Person.Application.Features.People.Queries
 {
-    public class GetActivePersonListQueryHandler : IRequestHandler<GetPersonListQuery, List<PersonViewModel>>
+    public class GetActivePersonListQueryHandler : IRequestHandler<GetActivePersonListQuery, List<PersonViewModel>>
     {
         private readonly IPersonRepository _personRepository;
         private readonly IMapper _mapper;
@@ -22,7 +22,7 @@ namespace Person.Application.Features.People.Queries
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<List<PersonViewModel>> Handle(GetPersonListQuery request, CancellationToken cancellationToken)
+        public async Task<List<PersonViewModel>> Handle(GetActivePersonListQuery request, CancellationToken cancellationToken)
         {
             var personIsActiveList = await _personRepository.GetActivePeople(request.IsActive);
 

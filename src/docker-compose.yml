@@ -1,11 +1,18 @@
 version: '3.4'
 
 services:
+  personmicroservicesdb:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+
+  portainer:
+    image: portainer/portainer-ce
+
   person.api:
     image: ${DOCKER_REGISTRY-}personapi
     build:
       context: .
       dockerfile: Services/Person/Person.API/Dockerfile
 
-  personmicroservicedb:
-    image: mcr.microsoft.com/mssql/server:2017-latest
+
+volumes:
+  portainer_data:

@@ -24,20 +24,22 @@ namespace Person.API.Controllers
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet("{isActive}", Name = "GetActivePeople")]
+        [Route("[action]/{isActive}", Name = "GetPeopleByIsActive")]
+        [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<PersonViewModel>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<PersonViewModel>>> GetPeopleByIsActive(bool isActive)
         {
-            var query = new GetPersonListQuery(isActive);
+            var query = new GetActivePersonListQuery(isActive);
             var people = await _mediator.Send(query);
             return Ok(people);
         }
 
-        [HttpGet("{lastName}", Name = "GetPeopleByLastName")]
+        [Route("[action]/{lastName}", Name = "GetPeopleByLastName")]
+        [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<PersonViewModel>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<PersonViewModel>>> GetPeopleByLastName(string lastName)
         {
-            var query = new GetPersonListQuery(lastName);
+            var query = new GetPersonByLastNameListQuery(lastName);
             var people = await _mediator.Send(query);
             return Ok(people);
         }
