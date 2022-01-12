@@ -1,21 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31702.278
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2D44CA4E-1C68-4BED-922C-8CA8C4AD6DFD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Person", "Person", "{7C0E02B5-0978-4A8C-A616-09ADB2662823}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Person.API", "Services\Person\Person.API\Person.API.csproj", "{289721A6-FD1C-45AA-806F-2D2DA91A4EF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Person.API", "Services\Person\Person.API\Person.API.csproj", "{289721A6-FD1C-45AA-806F-2D2DA91A4EF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Person.Domain", "Services\Person\Person.Domain\Person.Domain.csproj", "{07B386D4-3646-41BD-B9E0-F4EBE99ABF42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Person.Domain", "Services\Person\Person.Domain\Person.Domain.csproj", "{07B386D4-3646-41BD-B9E0-F4EBE99ABF42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Person.Application", "Services\Person\Person.Application\Person.Application.csproj", "{121BDB00-A6BB-4B47-8F26-A8DCF1A26D6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Person.Application", "Services\Person\Person.Application\Person.Application.csproj", "{121BDB00-A6BB-4B47-8F26-A8DCF1A26D6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Person.Infrastructure", "Services\Person\Person.Infrastructure\Person.Infrastructure.csproj", "{61D7E350-ADDF-4417-A323-2DD7370A908C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Person.Infrastructure", "Services\Person\Person.Infrastructure\Person.Infrastructure.csproj", "{61D7E350-ADDF-4417-A323-2DD7370A908C}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{C924212D-352F-4244-8948-FEC4C05B6B4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Address", "Address", "{A024D3C4-9FCE-4076-88F5-A4E317D50436}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Address.api", "Services\Address\Address.api\Address.api.csproj", "{083DEE61-8C65-46F9-9EEF-5E437D0EE9BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +47,10 @@ Global
 		{C924212D-352F-4244-8948-FEC4C05B6B4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C924212D-352F-4244-8948-FEC4C05B6B4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C924212D-352F-4244-8948-FEC4C05B6B4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{083DEE61-8C65-46F9-9EEF-5E437D0EE9BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{083DEE61-8C65-46F9-9EEF-5E437D0EE9BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{083DEE61-8C65-46F9-9EEF-5E437D0EE9BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{083DEE61-8C65-46F9-9EEF-5E437D0EE9BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +61,8 @@ Global
 		{07B386D4-3646-41BD-B9E0-F4EBE99ABF42} = {7C0E02B5-0978-4A8C-A616-09ADB2662823}
 		{121BDB00-A6BB-4B47-8F26-A8DCF1A26D6F} = {7C0E02B5-0978-4A8C-A616-09ADB2662823}
 		{61D7E350-ADDF-4417-A323-2DD7370A908C} = {7C0E02B5-0978-4A8C-A616-09ADB2662823}
+		{A024D3C4-9FCE-4076-88F5-A4E317D50436} = {2D44CA4E-1C68-4BED-922C-8CA8C4AD6DFD}
+		{083DEE61-8C65-46F9-9EEF-5E437D0EE9BA} = {A024D3C4-9FCE-4076-88F5-A4E317D50436}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {287C0D3C-CDCF-45F8-8909-5A19BB801ADE}
