@@ -32,7 +32,7 @@ namespace Person.Application.Features.People.Commands.CreatePerson
 
             _logger.LogInformation($"New Person {person.ID} was successfully created.");
 
-            return person.ID;
+            return newPerson.ID;
 
         }
     }
