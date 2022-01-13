@@ -1,6 +1,7 @@
 ﻿using Address.api.Entities;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
+using System;
 using System.Threading.Tasks;
 
 namespace Address.api.Repositories
@@ -10,7 +11,7 @@ namespace Address.api.Repositories
         private readonly IDistributedCache _redisCache;
         public AddressRepository(IDistributedCache redisCache)
         {
-            _redisCache = redisCache;
+            _redisCache = redisCache ?? throw new ArgumentNullException(nameof(redisCache));
         }
         public async Task DeletePersonAddress(string ID)
         {

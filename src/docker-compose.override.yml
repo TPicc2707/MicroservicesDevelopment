@@ -10,6 +10,12 @@ services:
     ports:
      - "1434:1433"
 
+  addressDB:
+    container_name: addressDB
+    restart: always
+    ports:
+     - "6379:6379"   
+
   portainer:
     container_name: portainer
     restart: always
@@ -30,3 +36,12 @@ services:
     ports:
       - "8000:80"
  
+  address.api:
+    container_name: address.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "CacheSettings:ConnectionString=addressDB:6379"
+    depends_on:
+      - addressDB
+    ports:
+      - "8001:80"
