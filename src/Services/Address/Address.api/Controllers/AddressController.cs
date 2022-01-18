@@ -32,7 +32,7 @@ namespace Address.api.Controllers
             return Ok(await _addressRepository.UpdatePersonAddress(addresses));
         }
 
-        [HttpDelete]
+        [HttpDelete("{ID}",Name ="DeleteAddresses")]
         [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
 
         public async Task<IActionResult> DeleteAddresses(string ID)
