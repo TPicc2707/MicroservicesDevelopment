@@ -1,4 +1,5 @@
 using Address.api.Repositories;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,17 @@ namespace Address.api
                 options.Configuration = Configuration.GetValue<string>("CacheSettings:ConnectionString");
             });
             services.AddScoped<IAddressRepository, AddressRepository>();
+
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddMassTransit(config => {
+                config.UsingRabbitMq((ctx, cfg) =>
+                {
+                    cfg.Host(Configuration["EventBusSettings:HostAddress"]);
+                });
+            });
+            services.AddMassTransitHostedService();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

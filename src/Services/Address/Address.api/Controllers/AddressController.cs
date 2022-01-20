@@ -1,5 +1,8 @@
 ﻿using Address.api.Entities;
 using Address.api.Repositories;
+using AutoMapper;
+using EventBus.Messages.Events;
+using MassTransit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,9 +16,14 @@ namespace Address.api.Controllers
     public class AddressController : ControllerBase
     {
         private readonly IAddressRepository _addressRepository;
-        public AddressController(IAddressRepository addressRepository)
+        private readonly IMapper _mapper;
+        private readonly IPublishEndpoint _publishEndpoint;
+        public AddressController(IAddressRepository addressRepository, IMapper mapper, IPublishEndpoint publishEndpoint)
         {
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _addressRepository = addressRepository ?? throw new ArgumentNullException(nameof(addressRepository));
+            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
+
         }
         [HttpGet("{ID}",Name ="GetAddresses")]
         [ProducesResponseType(typeof(Addresses), (int)HttpStatusCode.OK)]
@@ -41,6 +49,22 @@ namespace Address.api.Controllers
             return Ok();
         }
 
+        [Route("[action]")]
+        [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.Accepted)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> CreateAddress([FromBody] CreatePersonAddress personAddress)
+        {
+            var address = await _addressRepository.GetPersonAddresses(personAddress.Person_Id.ToString());
+            if(address == null) 
+            { 
+                return BadRequest(); 
+            }
+            var eventMessage = _mapper.Map<CreatePersonAddressEvent>(personAddress);
+            await _publishEndpoint.Publish(eventMessage);
 
+            await _addressRepository.DeletePersonAddress(address.PersonID);
+            return Accepted();
+        }
     }
 }
