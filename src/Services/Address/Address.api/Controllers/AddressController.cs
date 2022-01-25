@@ -53,15 +53,28 @@ namespace Address.api.Controllers
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Accepted)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> CreateAddress([FromBody] CreatePersonAddress personAddress)
+        public async Task<IActionResult> CreateAddress(string ID)
         {
-            var address = await _addressRepository.GetPersonAddresses(personAddress.Person_Id.ToString());
+            var address = await _addressRepository.GetPersonAddresses(ID);
             if(address == null) 
             { 
                 return BadRequest(); 
             }
-            var eventMessage = _mapper.Map<CreatePersonAddressEvent>(personAddress);
-            await _publishEndpoint.Publish(eventMessage);
+
+            foreach(var personAddress in address.PersonAddresses)
+            {
+                CreatePersonAddress newAddress = new CreatePersonAddress
+                {
+                    Person_Id = Convert.ToInt32(ID),
+                    Street = personAddress.Street,
+                    City = personAddress.City,
+                    State = personAddress.State,
+                    ZipCode = personAddress.ZipCode
+                };
+
+                var eventMessage = _mapper.Map<CreatePersonAddressEvent>(personAddress);
+                await _publishEndpoint.Publish(eventMessage);
+            }
 
             await _addressRepository.DeletePersonAddress(address.PersonID);
             return Accepted();
