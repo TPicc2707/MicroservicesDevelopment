@@ -66,13 +66,14 @@ namespace Address.api.Controllers
                 CreatePersonAddress newAddress = new CreatePersonAddress
                 {
                     Person_Id = Convert.ToInt32(ID),
+                    Type = personAddress.Type,
                     Street = personAddress.Street,
                     City = personAddress.City,
                     State = personAddress.State,
                     ZipCode = personAddress.ZipCode
                 };
 
-                var eventMessage = _mapper.Map<CreatePersonAddressEvent>(personAddress);
+                var eventMessage = _mapper.Map<CreatePersonAddressEvent>(newAddress);
                 await _publishEndpoint.Publish(eventMessage);
             }
 

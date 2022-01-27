@@ -5,6 +5,7 @@ using Person.Application.Features.People.Commands.CreatePerson;
 using Person.Application.Features.People.Commands.DeletePerson;
 using Person.Application.Features.People.Commands.UpdatePerson;
 using Person.Application.Features.People.Queries;
+using Person.Application.Features.PeopleAddress.Commands.CreatePersonAddress;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,6 +72,15 @@ namespace Person.API.Controllers
             var deleteCommand = new DeletePersonCommandVm() { ID = id };
             await _mediator.Send(deleteCommand);
             return NoContent();
+        }
+
+        [Route("[action]", Name = "CreatePersonAddress")]
+        [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<ActionResult<int>> CreatePersonAddress([FromBody] CreatePersonAddressCommandVm createPersonAddressCommandVm)
+        {
+            var result = await _mediator.Send(createPersonAddressCommandVm);
+            return Ok(result);
         }
     }
 }

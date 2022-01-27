@@ -1,3 +1,5 @@
+using EventBus.Messages.Common;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Person.API.EventBusConsumer;
 using Person.Application;
 using Person.Infrastructure;
 using System;
@@ -29,6 +32,27 @@ namespace Person.API
         {
             services.AddApplicationServices();
             services.AddInfrastructureServices(Configuration);
+
+            services.AddMassTransit(config => {
+
+                config.AddConsumer<CreatePersonAddressConsumer>();
+
+                config.UsingRabbitMq((ctx, cfg) =>
+                {
+                    cfg.Host(Configuration["EventBusSettings:HostAddress"]);
+
+                    cfg.ReceiveEndpoint(EventBusConstants.CreatePersonAddressQueue, c =>
+                    {
+                        c.ConfigureConsumer<CreatePersonAddressConsumer>(ctx);
+                    });
+                });
+            });
+            services.AddMassTransitHostedService();
+
+            services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<CreatePersonAddressConsumer>();
+
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

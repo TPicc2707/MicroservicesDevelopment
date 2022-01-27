@@ -16,6 +16,13 @@ services:
     ports:
      - "6379:6379"   
 
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+    - "5672:5672"
+    - "15672:15672"
+
   portainer:
     container_name: portainer
     restart: always
@@ -31,8 +38,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ConnectionStrings:PersonMicroServicesConnectionString=Server=personmicroservicesdb;Database=PersonMicroservicesDb;User Id=sa;Password=Micro12345678;"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - personmicroservicesdb
+      - rabbitmq
     ports:
       - "8000:80"
  
@@ -41,7 +50,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSettings:ConnectionString=addressDB:6379"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - addressDB
+      - rabbitmq
     ports:
       - "8001:80"
