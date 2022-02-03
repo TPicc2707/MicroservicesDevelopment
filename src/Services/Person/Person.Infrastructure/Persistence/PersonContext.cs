@@ -20,6 +20,13 @@ namespace Person.Infrastructure.Persistence
         public DbSet<Domain.Entities.Person> People { get; set; }
         public DbSet<Person_Address> PeopleAddresses { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Person_Address>()
+                .HasOne(a => a.Person).WithMany(a => a.Addresses).HasForeignKey(p => p.Person_Id);
+        }
+
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             foreach(var entry in ChangeTracker.Entries<EntityBase>())

@@ -20,5 +20,6 @@ namespace Person.Domain.Entities
         public string EyeColor { get; set; }
         public string Race { get; set; }
         public bool IsActive { get; set; }
+        public List<Person_Address> Addresses { get; set; }
     }
 }

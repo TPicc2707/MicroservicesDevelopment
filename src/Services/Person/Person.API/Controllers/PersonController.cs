@@ -73,14 +73,5 @@ namespace Person.API.Controllers
             await _mediator.Send(deleteCommand);
             return NoContent();
         }
-
-        [Route("[action]", Name = "CreatePersonAddress")]
-        [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<ActionResult<int>> CreatePersonAddress([FromBody] CreatePersonAddressCommandVm createPersonAddressCommandVm)
-        {
-            var result = await _mediator.Send(createPersonAddressCommandVm);
-            return Ok(result);
-        }
     }
 }

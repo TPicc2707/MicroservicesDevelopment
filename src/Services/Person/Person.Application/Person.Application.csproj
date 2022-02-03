@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <Folder Include="Contracts\Infrastructure\" />
-    <Folder Include="Features\PeopleAddress\Queries\" />
   </ItemGroup>
 
 </Project>

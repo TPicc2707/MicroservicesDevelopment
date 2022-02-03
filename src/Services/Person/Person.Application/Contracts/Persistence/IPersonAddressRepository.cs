@@ -9,5 +9,6 @@ namespace Person.Application.Contracts.Persistence
 {
     public interface IPersonAddressRepository : IAsyncRepository<Person_Address>
     {
+        Task<IEnumerable<Person_Address>> GetAddressesByType(string type);
     }
 }

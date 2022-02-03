@@ -16,14 +16,14 @@ namespace Person.Infrastructure.Repositories
 
         public async Task<IEnumerable<Domain.Entities.Person>> GetActivePeople(bool isActive)
         {
-            var personList = await _dbContext.People.Where(p => p.IsActive == isActive).ToListAsync();
+            var personList = await _dbContext.People.Where(p => p.IsActive == isActive).Include(p => p.Addresses).ToListAsync();
 
             return personList;
         }
 
         public async Task<IEnumerable<Domain.Entities.Person>> GetPeopleByLastName(string lastName)
         {
-            var personList = await _dbContext.People.Where(p => p.LastName == lastName).OrderBy(p => p.LastName).ToListAsync();
+            var personList = await _dbContext.People.Where(p => p.LastName == lastName).Include(p => p.Addresses).OrderBy(p => p.LastName).ToListAsync();
 
             return personList;
         }
