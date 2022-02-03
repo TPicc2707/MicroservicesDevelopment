@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Person.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,5 +22,6 @@ namespace Person.Application.Features.People.Queries
         public string Race { get; set; }
         public bool IsActive { get; set; }
 
+        public ICollection<Person_Address> Addresses { get; set; }
     }
 }

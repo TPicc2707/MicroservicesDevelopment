@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using Person.API.EventBusConsumer;
 using Person.Application;
 using Person.Infrastructure;
+using System.Text.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,7 +54,7 @@ namespace Person.API
             services.AddScoped<CreatePersonAddressConsumer>();
 
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Person.API", Version = "v1" });
