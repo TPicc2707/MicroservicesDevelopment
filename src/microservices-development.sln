@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApps", "WebApps", "{39C7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MicroserviceWebBlazor", "MicroserviceWebBlazor", "{4CBACA44-96CF-4ED3-A0CB-001287AC718B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservices.WebAssemblyBlazor", "WebApps\MicroserviceWebBlazor\Microservices.WebAssemblyBlazor\Microservices.WebAssemblyBlazor.csproj", "{47FD3656-5A60-4F65-9CB0-7A0313B95B97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservices.WebAssemblyBlazor", "WebApps\MicroserviceWebBlazor\Microservices.WebAssemblyBlazor\Microservices.WebAssemblyBlazor.csproj", "{47FD3656-5A60-4F65-9CB0-7A0313B95B97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
