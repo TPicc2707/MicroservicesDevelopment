@@ -27,5 +27,24 @@ namespace Microservices.WebAssemblyBlazor.Services
             var response = await _client.GetAsync($"/Person/GetPeopleByLastName/{lastName}");
             return await response.ReadContentAs<List<PersonModel>>();
         }
+
+
+        public async Task CreatePerson(PersonModel person)
+        {
+            var response = await _client.PostAsJson($"/Person", person);
+            if (response.IsSuccessStatusCode)
+                throw new Exception("Something went wrong with calling the api.");
+
+        }
+
+        public async Task<PersonModel> UpdatePerson(PersonModel person)
+        {
+            var response = await _client.PutAsJson($"/Person", person);
+            if (response.IsSuccessStatusCode)
+                return await response.ReadContentAs<PersonModel>();
+            else
+                throw new Exception("Something went wrong with calling the api.");
+
+        }
     }
 }
