@@ -19,13 +19,19 @@ services:
       context: .
       dockerfile: Services/Person/Person.API/Dockerfile
 
-
   address.api:
     image: ${DOCKER_REGISTRY-}addressapi
     build:
       context: .
       dockerfile: Services/Address/Address.api/Dockerfile
 
+  microservices.webassemblyblazor:
+    image: ${DOCKER_REGISTRY-}microserviceswebassemblyblazor
+    build:
+      context: .
+      dockerfile: WebApps/MicroserviceWebBlazor/Microservices.WebAssemblyBlazor/Dockerfile
+
 volumes:
   portainer_data:
+
 

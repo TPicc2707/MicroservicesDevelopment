@@ -20,7 +20,7 @@ namespace Microservices.WebAssemblyBlazor
 
             builder.Services.AddHttpClient<IPersonService, PersonService>(client =>
             {
-                client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
+                client.BaseAddress = new Uri("http://localhost:8000");
             });
             builder.Services.AddHttpClient<IAddressService, AddressService>(client =>
             {

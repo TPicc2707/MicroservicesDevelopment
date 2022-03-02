@@ -18,7 +18,7 @@ namespace Microservices.WebAssemblyBlazor.Services
 
         public async Task<IEnumerable<PersonModel>> GetActivePeople(bool isActive)
         {
-            var response = await _client.GetAsync($"/Person/GetPeopleByIsActive/{isActive}");
+            var response = await _client.GetAsync($"/api/v1/Person/GetPeopleByIsActive/{isActive}");
             return await response.ReadContentAs<List<PersonModel>>();
         }
 
