@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Person.Application.Features.PeopleAddress.Commands.CreatePersonAddress;
 using Person.Application.Features.PeopleAddress.Queries.GetPersonAddressList;
@@ -11,6 +12,7 @@ namespace Person.API.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [EnableCors("CorsPolicy")]
     public class PersonAddressController : ControllerBase
     {
         private readonly IMediator _mediator;

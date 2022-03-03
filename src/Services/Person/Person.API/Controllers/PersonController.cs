@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Person.Application.Features.People.Commands.CreatePerson;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 namespace Person.API.Controllers
 {
     [ApiController]
+    [EnableCors("CorsPolicy")]
     [Route("api/v1/[controller]")]
     public class PersonController : ControllerBase
     {
