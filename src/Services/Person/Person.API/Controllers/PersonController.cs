@@ -16,7 +16,6 @@ using System.Threading.Tasks;
 namespace Person.API.Controllers
 {
     [ApiController]
-    [EnableCors("CorsPolicy")]
     [Route("api/v1/[controller]")]
     public class PersonController : ControllerBase
     {

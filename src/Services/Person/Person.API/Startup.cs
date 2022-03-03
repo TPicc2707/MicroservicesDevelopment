@@ -53,10 +53,16 @@ namespace Person.API
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<CreatePersonAddressConsumer>();
 
-            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
+            services.AddCors(options =>
             {
-                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-            }));
+                options.AddPolicy("DevCorsPolicy", builder =>
+                {
+                    builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
 
 
             services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
@@ -77,7 +83,7 @@ namespace Person.API
             }
 
             app.UseRouting();
-            app.UseCors();
+            app.UseCors("DevCorsPolicy");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
