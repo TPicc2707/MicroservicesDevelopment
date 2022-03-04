@@ -55,13 +55,10 @@ namespace Person.API
 
             services.AddCors(options =>
             {
-                options.AddPolicy("DevCorsPolicy", builder =>
-                {
-                    builder
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
-                });
+                options.AddDefaultPolicy(builder =>
+                builder.WithOrigins("http://localhost:21359")
+                .AllowAnyHeader()
+                .AllowAnyMethod());
             });
 
 
@@ -83,7 +80,7 @@ namespace Person.API
             }
 
             app.UseRouting();
-            app.UseCors("DevCorsPolicy");
+            app.UseCors();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

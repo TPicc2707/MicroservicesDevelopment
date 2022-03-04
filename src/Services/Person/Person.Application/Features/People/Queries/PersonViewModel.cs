@@ -1,4 +1,5 @@
-﻿using Person.Domain.Entities;
+﻿using Newtonsoft.Json;
+using Person.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Person.Application.Features.People.Queries
 {
+    [JsonObject(IsReference = false)]
     public class PersonViewModel
     {
         public int ID { get; set; }
@@ -22,6 +24,6 @@ namespace Person.Application.Features.People.Queries
         public string Race { get; set; }
         public bool IsActive { get; set; }
 
-        public ICollection<Person_Address> Addresses { get; set; }
+        //public ICollection<Person_Address> Addresses { get; set; }
     }
 }
