@@ -16,11 +16,17 @@ namespace Microservices.WebAssemblyBlazor.Services
             _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
+        public async Task<IEnumerable<PersonModel>> GetPeople()
+        {
+            var response = await _client.GetAsync($"/api/v1/Person/GetPeople/");
+            return await response.ReadContentAs<List<PersonModel>>();
+        }
         public async Task<IEnumerable<PersonModel>> GetActivePeople(bool isActive)
         {
             var response = await _client.GetAsync($"/api/v1/Person/GetPeopleByIsActive/{isActive}");
             return await response.ReadContentAs<List<PersonModel>>();
         }
+
 
         public async Task<IEnumerable<PersonModel>> GetPeopleByLastName(string lastName)
         {
@@ -28,6 +34,11 @@ namespace Microservices.WebAssemblyBlazor.Services
             return await response.ReadContentAs<List<PersonModel>>();
         }
 
+        public async Task<PersonModel> GetPersonById(string Id)
+        {
+            var response = await _client.GetAsync($"/Person/GetPersonById/{Id}");
+            return await response.ReadContentAs<PersonModel>();
+        }
 
         public async Task CreatePerson(PersonModel person)
         {

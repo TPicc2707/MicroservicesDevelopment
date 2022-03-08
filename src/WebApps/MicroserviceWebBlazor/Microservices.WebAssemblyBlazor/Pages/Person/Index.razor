@@ -1,6 +1,19 @@
 ﻿@page "/Person"
 @inject IPersonService PersonService
 
+<div class="col-md-12">
+    <p>
+        <div class="row">
+            <div class="col-md-6 text-left">
+                <NavLink class="btn btn-secondary" href="@("/")">Back</NavLink>
+            </div>
+             <div class="col-md-6 text-right">
+                <NavLink class="btn btn-secondary" href="@("/Person/Create")">Create New Person</NavLink>
+            </div>
+        </div>
+    </p>
+</div>
+
 <h3>People</h3>
 
 <hr />
@@ -9,8 +22,8 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                <th scope="col">View</th>
+                <th scope="col">Edit</th>
                 <th scope="col">Rank</th>
                 <th scope="col">Last Name</th>
                 <th scope="col">First Name</th>
@@ -23,8 +36,8 @@
             @foreach (var person in People)
             {
                 <tr>
-                    <td></td>
-                    <td></td>
+                    <td><NavLink href="@($"/Person/Detail/id={person.Id}")"><span class="oi oi-person"></span></NavLink></td>
+                    <td><NavLink href="@($"/Person/Edit/id={person.Id}")"><span class="oi oi-pencil"></span></NavLink></td>
                     <td>@person.Rank</td>
                     <td>@person.LastName</td>
                     <td>@person.FirstName</td>
@@ -42,6 +55,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        People = await PersonService.GetActivePeople(true);
+        People = await PersonService.GetPeople();
     }
 }

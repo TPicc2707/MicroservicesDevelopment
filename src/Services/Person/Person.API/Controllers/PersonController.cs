@@ -26,6 +26,26 @@ namespace Person.API.Controllers
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
+        [Route("[action]", Name = "GetPeople")]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<PersonViewModel>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<PersonViewModel>>> GetPeople()
+        {
+            var query = new GetPeopleListQuery();
+            var people = await _mediator.Send(query);
+            return Ok(people);
+        }
+
+        [Route("[action]/{Id}", Name = "GetPersonById")]
+        [HttpGet]
+        [ProducesResponseType(typeof(PersonViewModel), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<PersonViewModel>> GetPersonById(string Id)
+        {
+            var query = new GetPersonListQuery(Convert.ToInt32(Id));
+            var people = await _mediator.Send(query);
+            return Ok(people);
+        }
+
         [Route("[action]/{isActive}", Name = "GetPeopleByIsActive")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<PersonViewModel>), (int)HttpStatusCode.OK)]

@@ -7,8 +7,10 @@ namespace Microservices.WebAssemblyBlazor.Services
 {
     public interface IPersonService
     {
+        Task<IEnumerable<PersonModel>> GetPeople();
         Task<IEnumerable<PersonModel>> GetActivePeople(bool isActive);
         Task<IEnumerable<PersonModel>> GetPeopleByLastName(string lastName);
+        Task<PersonModel> GetPersonById(string Id);
         Task CreatePerson(PersonModel person);
         Task<PersonModel> UpdatePerson(PersonModel person);
     }
