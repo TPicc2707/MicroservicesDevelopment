@@ -30,19 +30,19 @@ namespace Microservices.WebAssemblyBlazor.Services
 
         public async Task<IEnumerable<PersonModel>> GetPeopleByLastName(string lastName)
         {
-            var response = await _client.GetAsync($"/Person/GetPeopleByLastName/{lastName}");
+            var response = await _client.GetAsync($"/api/v1/Person/GetPeopleByLastName/{lastName}");
             return await response.ReadContentAs<List<PersonModel>>();
         }
 
         public async Task<PersonModel> GetPersonById(string Id)
         {
-            var response = await _client.GetAsync($"/Person/GetPersonById/{Id}");
+            var response = await _client.GetAsync($"/api/v1/Person/GetPersonById/{Id}");
             return await response.ReadContentAs<PersonModel>();
         }
 
         public async Task CreatePerson(PersonModel person)
         {
-            var response = await _client.PostAsJson($"/Person", person);
+            var response = await _client.PostAsJson($"/api/v1/Person", person);
             if (response.IsSuccessStatusCode)
                 throw new Exception("Something went wrong with calling the api.");
 
@@ -50,7 +50,7 @@ namespace Microservices.WebAssemblyBlazor.Services
 
         public async Task<PersonModel> UpdatePerson(PersonModel person)
         {
-            var response = await _client.PutAsJson($"/Person", person);
+            var response = await _client.PutAsJson($"/api/v1/Person", person);
             if (response.IsSuccessStatusCode)
                 return await response.ReadContentAs<PersonModel>();
             else

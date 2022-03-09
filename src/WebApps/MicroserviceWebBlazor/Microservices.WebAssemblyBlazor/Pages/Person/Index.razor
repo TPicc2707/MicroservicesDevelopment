@@ -18,37 +18,45 @@
 
 <hr />
 
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">View</th>
-                <th scope="col">Edit</th>
-                <th scope="col">Rank</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">First Name</th>
-                <th scope="col">MI</th>
-                <th scope="col">Gender</th>
-                <th scope="col">Active</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var person in People)
-            {
+@if (People == null && People.Count() == 0)
+{
+    <span>Loading people...</span>
+}
+else
+{
+    <div>
+        <table class="table">
+            <thead>
                 <tr>
-                    <td><NavLink href="@($"/Person/Detail/id={person.Id}")"><span class="oi oi-person"></span></NavLink></td>
-                    <td><NavLink href="@($"/Person/Edit/id={person.Id}")"><span class="oi oi-pencil"></span></NavLink></td>
-                    <td>@person.Rank</td>
-                    <td>@person.LastName</td>
-                    <td>@person.FirstName</td>
-                    <td>@person.MiddleInitial</td>
-                    <td>@person.Gender</td>
-                    <td>@person.IsActive</td>
+                    <th scope="col">View</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">MI</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Active</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var person in People)
+                {
+                    <tr>
+                        <td><NavLink href="@($"/Person/Detail/{person.Id}")"><span class="oi oi-person"></span></NavLink></td>
+                        <td><NavLink href="@($"/Person/Edit/{person.Id}")"><span class="oi oi-pencil"></span></NavLink></td>
+                        <td>@person.Rank</td>
+                        <td>@person.LastName</td>
+                        <td>@person.FirstName</td>
+                        <td>@person.MiddleInitial</td>
+                        <td>@person.Gender</td>
+                        <td>@person.IsActive</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
 
 @code {
     public IEnumerable<PersonModel> People { get; set; } = new List<PersonModel>();

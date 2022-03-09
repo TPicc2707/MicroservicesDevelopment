@@ -11,14 +11,31 @@
     </p>
 </div>
 
-<div class="card">
-    <div class="card-header">
-        <h3>Person Detail</h3>
+@if (Person == null)
+{
+    <span>Loading person...</span>
+}
+else
+{
+    <div class="card col-md-6">
+        <div class="card-header">
+            <h3>Person Detail</h3>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><b><label style="padding-right:5px">Rank:</label></b>@Person.Rank</li>
+            <li class="list-group-item"><b><label style="padding-right:5px">First Name:</label></b>@Person.FirstName</li>
+            <li class="list-group-item"><b><label style="padding-right:5px">MI:</label></b>@Person.MiddleInitial</li>
+            <li class="list-group-item"><b><label style="padding-right:5px">Last Name:</label></b>@Person.LastName</li>
+            <li class="list-group-item"><b><label style="padding-right:5px">Gender:</label></b>@Person.Gender</li>
+            <li class="list-group-item"><b><label style="padding-right:5px">Weight:</label></b>@Person.Weight</li>
+            <li class="list-group-item"><b><label style="padding-right:5px">Height:</label></b>@Person.Height</li>
+            <li class="list-group-item"><b><label style="padding-right:5px">Eye Color:</label></b>@Person.EyeColor</li>
+            <li class="list-group-item"><b><label style="padding-right:5px">Race:</label></b>@Person.Race</li>
+            <li class="list-group-item"><b><label style="padding-right:5px">Is Active:</label></b>@Person.IsActive</li>
+        </ul>
     </div>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item"></li>
-    </ul>
-</div>
+}
+
 
 
 @code {

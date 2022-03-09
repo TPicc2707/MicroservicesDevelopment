@@ -23,7 +23,6 @@ namespace Person.Application.Features.People.Queries
         public string EyeColor { get; set; }
         public string Race { get; set; }
         public bool IsActive { get; set; }
-
-        //public ICollection<Person_Address> Addresses { get; set; }
+        public ICollection<Person_Address> Addresses { get; set; }
     }
 }

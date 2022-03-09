@@ -16,6 +16,6 @@ namespace Microservices.WebAssemblyBlazor.Models
         public string EyeColor { get; set; }
         public string Race { get; set; }
         public bool IsActive { get; set; }
-        //public ICollection<Person_AddressModel> Addresses { get; set; }
+        public ICollection<Person_AddressModel> Addresses { get; set; }
     }
 }
