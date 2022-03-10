@@ -14,6 +14,13 @@ namespace Person.Infrastructure.Repositories
 
         }
 
+        public async Task<Domain.Entities.Person> GetPersonById(int Id)
+        {
+            var person = await _dbContext.People.Where(p => p.ID == Id).Include(p => p.Addresses).FirstOrDefaultAsync();
+
+            return person;
+        }
+
         public async Task<IEnumerable<Domain.Entities.Person>> GetActivePeople(bool isActive)
         {
             var personList = await _dbContext.People.Where(p => p.IsActive == isActive).Include(p => p.Addresses).ToListAsync();

@@ -1,11 +1,15 @@
 ﻿@page "/Person/Detail/{id}"
 @inject IPersonService PersonService
 
-<div class="col-md-12">
+<div class="col-md-9">
     <p>
         <div class="row">
-            <div class="col-md-6 text-left">
+            <div class="col-md-5 text-left">
                 <NavLink class="btn btn-secondary" href="@("/Person")">Back</NavLink>
+            </div>
+
+            <div class="col-md-3 text-right">
+                <NavLink class="btn btn-primary" href="@($"/Person/Edit/{Id}")">Edit Person</NavLink>
             </div>
         </div>
     </p>
@@ -33,6 +37,34 @@ else
             <li class="list-group-item"><b><label style="padding-right:5px">Race:</label></b>@Person.Race</li>
             <li class="list-group-item"><b><label style="padding-right:5px">Is Active:</label></b>@Person.IsActive</li>
         </ul>
+    </div>
+
+    <div style="padding-top:20px">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Street Address</th>
+                    <th scope="col">City</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Zip Code</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var address in Person.Addresses)
+                {
+                    <tr>
+                        <td><NavLink href="@($"/Address/Edit/{address.Id}")"><span class="oi oi-pencil"></span></NavLink></td>
+                        <td>@address.Type</td>
+                        <td>@address.Street</td>
+                        <td>@address.City</td>
+                        <td>@address.State</td>
+                        <td>@address.ZipCode</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 }
 

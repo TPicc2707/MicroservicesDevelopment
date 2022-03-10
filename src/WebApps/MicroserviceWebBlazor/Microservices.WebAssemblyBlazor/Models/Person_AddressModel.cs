@@ -4,6 +4,7 @@ namespace Microservices.WebAssemblyBlazor.Models
 {
     public class Person_AddressModel
     {
+        public int Id { get; set; }
         public int Person_Id { get; set; }
         public string Type { get; set; }
         public string Street { get; set; }

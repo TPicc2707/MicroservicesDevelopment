@@ -23,7 +23,7 @@ namespace Person.Application.Features.People.Queries
 
         public async Task<PersonViewModel> Handle(GetPersonListQuery request, CancellationToken cancellationToken)
         {
-            var person = await _personRepository.GetByIdAsync(request.Id);
+            var person = await _personRepository.GetPersonById(request.Id);
             return _mapper.Map<PersonViewModel>(person);
         }
     }
