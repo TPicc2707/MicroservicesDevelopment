@@ -12,6 +12,7 @@ namespace Microservices.WebAssemblyBlazor.Services
         Task<IEnumerable<PersonModel>> GetPeopleByLastName(string lastName);
         Task<PersonModel> GetPersonById(string Id);
         Task CreatePerson(PersonModel person);
-        Task<PersonModel> UpdatePerson(PersonModel person);
+        Task UpdatePerson(PersonModel person);
+        Task DeletePerson(int Id);
     }
 }

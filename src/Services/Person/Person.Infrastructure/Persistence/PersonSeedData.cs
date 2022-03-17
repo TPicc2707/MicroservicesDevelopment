@@ -29,12 +29,12 @@ namespace Person.Infrastructure.Persistence
                     MiddleInitial = "A",
                     LastName = "Kawah",
                     Title = "Mr",
-                    Rank = "COL",
+                    Rank = "Colonel",
                     Gender = "Male",
                     Weight = 195,
                     Height = 72,
                     EyeColor = "Blue",
-                    Race = "African-American",
+                    Race = "Black or African American",
                     IsActive = true
                 },
                 new Domain.Entities.Person()
@@ -43,7 +43,7 @@ namespace Person.Infrastructure.Persistence
                     MiddleInitial = "N",
                     LastName = "Piccirilli",
                     Title = "Mr",
-                    Rank = "COL",
+                    Rank = "Colonel",
                     Gender = "Male",
                     Weight = 195,
                     Height = 72,

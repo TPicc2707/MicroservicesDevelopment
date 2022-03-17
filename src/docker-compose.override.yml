@@ -56,14 +56,3 @@ services:
       - rabbitmq
     ports:
       - "8001:80"
-
-  microservices.webassemblyblazor:
-    container_name: microservices.webassemblyblazor
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    depends_on:
-      - person.api
-      - address.api
-    ports:
-      - "8080:80"
-

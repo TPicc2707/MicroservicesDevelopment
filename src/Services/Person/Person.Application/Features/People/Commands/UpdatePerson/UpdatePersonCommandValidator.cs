@@ -30,12 +30,12 @@ namespace Person.Application.Features.People.Commands.UpdatePerson
             RuleFor(p => p.Rank)
                 .NotEmpty().WithMessage("{Rank} is required.")
                 .NotNull()
-                .MaximumLength(10).WithMessage("{Rank} must not exceed 10 characters");
+                .MaximumLength(100).WithMessage("{Rank} must not exceed 100 characters");
 
             RuleFor(p => p.Gender)
                 .NotEmpty().WithMessage("{Gender} is required.")
                 .NotNull()
-                .MaximumLength(6).WithMessage("{Gender} must not exceed 6 characters");
+                .MaximumLength(20).WithMessage("{Gender} must not exceed 20 characters");
 
             RuleFor(p => p.EyeColor)
                 .NotEmpty().WithMessage("{EyeColor} is required.")
@@ -45,7 +45,7 @@ namespace Person.Application.Features.People.Commands.UpdatePerson
             RuleFor(p => p.Race)
                 .NotEmpty().WithMessage("{Race} is required.")
                 .NotNull()
-                .MaximumLength(20).WithMessage("{Race} must not exceed 20 characters");
+                .MaximumLength(100).WithMessage("{Race} must not exceed 100 characters");
 
             RuleFor(p => p.Weight)
                 .NotEmpty().WithMessage("{Weight} is required.")

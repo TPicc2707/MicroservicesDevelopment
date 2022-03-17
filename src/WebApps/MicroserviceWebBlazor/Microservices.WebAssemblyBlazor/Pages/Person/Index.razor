@@ -30,6 +30,7 @@ else
                 <tr>
                     <th scope="col">View</th>
                     <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
                     <th scope="col">Rank</th>
                     <th scope="col">Last Name</th>
                     <th scope="col">First Name</th>
@@ -44,6 +45,7 @@ else
                     <tr>
                         <td><NavLink href="@($"/Person/Detail/{person.Id}")"><span class="oi oi-person"></span></NavLink></td>
                         <td><NavLink href="@($"/Person/Edit/{person.Id}")"><span class="oi oi-pencil"></span></NavLink></td>
+                        <td><span @onclick="() => Show(person.Id)" class="oi oi-trash"></span></td>
                         <td>@person.Rank</td>
                         <td>@person.LastName</td>
                         <td>@person.FirstName</td>
@@ -55,14 +57,57 @@ else
             </tbody>
         </table>
     </div>
+    @if (ShowDialogue)
+    {
+        <div class="modal fade show d-block" id="exampleModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">  
+                <div class="modal-content">  
+                    <div class="modal-header">  
+                        <h5 class="modal-title" id="titleLabel">Delete Confirmation</h5>  
+                        <button type="button" class="close" @onclick="@Close" data-dismiss="modal" aria-label="Close">  
+                            <span aria-hidden="true">×</span>  
+                        </button>  
+                    </div>  
+                    <div class="modal-body text-center">  
+                        <NavLink @onclick="@Close" style="color:white" class="btn btn-secondary">Cancel</NavLink>
+                        <NavLink @onclick="@HandleDelete" style="color:white" class="btn btn-danger">Confirm Delete</NavLink>
+                    </div>  
+                </div>  
+            </div>  
+        </div>
+    }
 }
 
 
 @code {
     public IEnumerable<PersonModel> People { get; set; } = new List<PersonModel>();
 
+    public bool ShowDialogue { get; set; } = false;
+    public int PersonId { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         People = await PersonService.GetPeople();
+    }
+
+    void Show(int Id)
+    {
+        ShowDialogue = true;
+        PersonId = Id;
+        StateHasChanged();
+    }
+
+    void Close()
+    {
+        ShowDialogue = false;
+        StateHasChanged();
+    }
+
+    protected async Task HandleDelete()
+    {
+        await PersonService.DeletePerson(PersonId);
+        People = await PersonService.GetPeople();
+        ShowDialogue = false;
+        StateHasChanged();
     }
 }
