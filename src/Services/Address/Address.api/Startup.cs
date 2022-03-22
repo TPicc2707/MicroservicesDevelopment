@@ -41,6 +41,13 @@ namespace Address.api
                 });
             });
             services.AddMassTransitHostedService();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                builder.WithOrigins("http://localhost:5002")
+                .AllowAnyHeader()
+                .AllowAnyMethod());
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -60,7 +67,7 @@ namespace Address.api
             }
 
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
