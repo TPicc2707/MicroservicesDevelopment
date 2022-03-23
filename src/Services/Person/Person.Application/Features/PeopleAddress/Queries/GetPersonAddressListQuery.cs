@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Person.Application.Features.PeopleAddress.Queries.GetPersonAddressList
+namespace Person.Application.Features.PeopleAddress.Queries
 {
     public class GetPersonAddressListQuery : IRequest<List<PersonAddressVm>>
     {

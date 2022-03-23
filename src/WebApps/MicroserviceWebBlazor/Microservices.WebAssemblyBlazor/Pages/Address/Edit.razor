@@ -1,7 +1,136 @@
 ﻿@page "/Address/Edit/{id}"
+@inject IPersonAddressService PersonAddressService
+
+@inject NavigationManager NavManager
+
+<div class="col-md-12">
+    <p>
+        <div class="row">
+            <div class="col-md-12 text-left">
+                <NavLink class="btn btn-secondary" href="@($"/Person/Detail/{PersonAddress.Person_Id}")">Back</NavLink>
+            </div>
+        </div>
+    </p>
+</div>
 
 <h3>Edit</h3>
 
-@code {
+<EditForm Model="@PersonAddress" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator/>
+    <ValidationSummary />
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label for="type"><b>Type</b></label>
+            <InputSelect class="form-control" id="type" @bind-Value="PersonAddress.Type"> 
+                @foreach(var type in Types)
+                {
+                    <option value="@type">@type</option>
+                }
+            </InputSelect>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="street"><b>Street Address</b></label>
+            <InputText class="form-control" id="street" placeholder="Street Address" @bind-Value="PersonAddress.Street"/>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="city"><b>City</b></label>
+            <InputText class="form-control" id="city" placeholder="City" @bind-Value="PersonAddress.City"/>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="state"><b>State</b></label>
+            <InputSelect class="form-control" id="state" @bind-Value="PersonAddress.State">
+                @foreach(var state in States)
+                {
+                    <option value="@state">@state</option>
+                }
+            </InputSelect>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="zip"><b>Zip Code</b></label>
+            <InputNumber class="form-control" id="zip" placeholder="Zip Code" @bind-Value="PersonAddress.ZipCode"/>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
 
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    public Person_AddressModel PersonAddress { get; set; } = new Person_AddressModel();
+
+    List<string> Types = new List<string>()
+    {
+        "",
+        "Home",
+        "Other",
+        "Work"
+    };
+
+    List<string> States = new List<string>()
+    {
+        "",
+        "AK",
+        "AL",
+        "AR",
+        "AZ",
+        "CA",
+        "CO",
+        "CT",
+        "DE",
+        "FL",
+        "GA",
+        "HI",
+        "IA",
+        "ID",
+        "IL",
+        "IN",
+        "KS",
+        "KY",
+        "LA",
+        "MA",
+        "MD",
+        "ME",
+        "MI",
+        "MN",
+        "MO",
+        "MS",
+        "MT",
+        "NC",
+        "ND",
+        "NE",
+        "NH",
+        "NJ",
+        "NM",
+        "NV",
+        "NY",
+        "OH",
+        "OK",
+        "OR",
+        "PA",
+        "RI",
+        "SC",
+        "SD",
+        "TN",
+        "TX",
+        "UT",
+        "VT",
+        "VA",
+        "WA",
+        "WI",
+        "WV",
+        "WY"
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        PersonAddress = await PersonAddressService.GetAddressById(Id);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        await PersonAddressService.UpdatePersonAddress(PersonAddress);
+        NavManager.NavigateTo($"/person/Detail/{PersonAddress.Person_Id}");
+    }
 }

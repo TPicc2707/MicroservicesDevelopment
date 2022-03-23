@@ -49,7 +49,7 @@ namespace Address.api.Controllers
             return Ok();
         }
 
-        [Route("[action]")]
+        [Route("[action]/{ID}")]
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Accepted)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]

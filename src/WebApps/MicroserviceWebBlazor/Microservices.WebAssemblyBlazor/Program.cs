@@ -26,11 +26,11 @@ namespace Microservices.WebAssemblyBlazor
             });
             builder.Services.AddHttpClient<IAddressService, AddressService>(client =>
             {
-                client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
+                client.BaseAddress = new Uri("http://localhost:8001");
             });
             builder.Services.AddHttpClient<IPersonAddressService, PersonAddressService>(client =>
             {
-                client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress);
+                client.BaseAddress = new Uri("http://localhost:8000");
             });
 
             await builder.Build().RunAsync();

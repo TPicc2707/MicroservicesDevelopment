@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Person.Application.Features.PeopleAddress.Commands.CreatePersonAddress
+namespace Person.Application.Features.PeopleAddress.Commands.UpdatePersonAddress
 {
-    public class CreatePersonAddressValidator : AbstractValidator<CreatePersonAddressCommandVm>
+    public class UpdatePersonAddressCommandValidator : AbstractValidator<UpdatePersonAddressCommandVm>
     {
-        public CreatePersonAddressValidator()
+        public UpdatePersonAddressCommandValidator()
         {
             RuleFor(p => p.Person_Id)
                 .NotEmpty().WithMessage("{Person_Id} is required.")
@@ -41,9 +41,6 @@ namespace Person.Application.Features.PeopleAddress.Commands.CreatePersonAddress
                 .NotNull()
                 .GreaterThan(0).WithMessage("{ZipCode} should be greater than zero.")
                 .LessThan(100000).WithMessage("{ZipCode} should be less than 100000");
-
-
         }
-
     }
 }

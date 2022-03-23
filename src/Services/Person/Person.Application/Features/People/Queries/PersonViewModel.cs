@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Person.Application.Features.PeopleAddress.Queries.GetPersonAddressList;
+using Person.Application.Features.PeopleAddress.Queries;
 using Person.Domain.Entities;
 using System;
 using System.Collections.Generic;

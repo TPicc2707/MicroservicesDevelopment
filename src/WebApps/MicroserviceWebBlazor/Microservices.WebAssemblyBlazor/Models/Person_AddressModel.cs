@@ -10,7 +10,6 @@ namespace Microservices.WebAssemblyBlazor.Models
         public string Street { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        [MaxLength(5, ErrorMessage = "Zip Code must be less than 5 digits")]
         public int ZipCode { get; set; }
         public PersonModel Person { get; set; }
 

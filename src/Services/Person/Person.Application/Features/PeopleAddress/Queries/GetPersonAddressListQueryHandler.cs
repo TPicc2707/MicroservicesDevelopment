@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Person.Application.Features.PeopleAddress.Queries.GetPersonAddressList
+namespace Person.Application.Features.PeopleAddress.Queries
 {
     public class GetPersonAddressListQueryHandler : IRequestHandler<GetPersonAddressListQuery, List<PersonAddressVm>>
     {

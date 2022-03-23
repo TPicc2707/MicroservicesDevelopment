@@ -64,6 +64,7 @@
 
     List<string> Types = new List<string>()
     {
+        "",
         "Home",
         "Other",
         "Work"
@@ -71,10 +72,11 @@
 
     List<string> States = new List<string>()
     {
-        "AL",
+        "",
         "AK",
-        "AZ",
+        "AL",
         "AR",
+        "AZ",
         "CA",
         "CO",
         "CT",
@@ -82,29 +84,29 @@
         "FL",
         "GA",
         "HI",
+        "IA",
         "ID",
         "IL",
         "IN",
-        "IA",
         "KS",
         "KY",
         "LA",
-        "ME",
-        "MD",
         "MA",
+        "MD",
+        "ME",
         "MI",
         "MN",
-        "MS",
         "MO",
+        "MS",
         "MT",
+        "NC",
+        "ND",
         "NE",
-        "NV",
         "NH",
         "NJ",
         "NM",
+        "NV",
         "NY",
-        "NC",
-        "ND",
         "OH",
         "OK",
         "OR",
@@ -118,8 +120,8 @@
         "VT",
         "VA",
         "WA",
-        "WV",
         "WI",
+        "WV",
         "WY"
     };
 
@@ -128,6 +130,7 @@
         Addresses.PersonID = Id;
         Addresses.PersonAddresses.Add(Address);
         await AddressService.UpdateAddress(Addresses);
-        NavManager.NavigateTo("/person");
+        await AddressService.CreateAddress(Addresses.PersonID);
+        NavManager.NavigateTo($"/person/Detail/{Addresses.PersonID}");
     }
 }
