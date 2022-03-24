@@ -45,7 +45,7 @@ else
                     <tr>
                         <td><NavLink href="@($"/Person/Detail/{person.Id}")"><span class="oi oi-person"></span></NavLink></td>
                         <td><NavLink href="@($"/Person/Edit/{person.Id}")"><span class="oi oi-pencil"></span></NavLink></td>
-                        <td><span @onclick="() => Show(person.Id)" class="oi oi-trash"></span></td>
+                        <td><span style="cursor:pointer" @onclick="() => Show(person.Id)" class="oi oi-trash"></span></td>
                         <td>@person.Rank</td>
                         <td>@person.LastName</td>
                         <td>@person.FirstName</td>
@@ -69,8 +69,8 @@ else
                         </button>  
                     </div>  
                     <div class="modal-body text-center">  
-                        <NavLink @onclick="@Close" style="color:white" class="btn btn-secondary">Cancel</NavLink>
-                        <NavLink @onclick="@HandleDelete" style="color:white" class="btn btn-danger">Confirm Delete</NavLink>
+                        <NavLink @onclick="@Close" style="color:white; cursor:pointer" class="btn btn-secondary">Cancel</NavLink>
+                        <NavLink @onclick="@HandlePersonDelete" style="color:white; cursor:pointer" class="btn btn-danger">Confirm Delete</NavLink>
                     </div>  
                 </div>  
             </div>  
@@ -103,7 +103,7 @@ else
         StateHasChanged();
     }
 
-    protected async Task HandleDelete()
+    protected async Task HandlePersonDelete()
     {
         await PersonService.DeletePerson(PersonId);
         People = await PersonService.GetPeople();

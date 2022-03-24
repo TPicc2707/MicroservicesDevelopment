@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Person.Application.Features.PeopleAddress.Commands.CreatePersonAddress;
+using Person.Application.Features.PeopleAddress.Commands.DeletePersonAddress;
 using Person.Application.Features.PeopleAddress.Commands.UpdatePersonAddress;
 using Person.Application.Features.PeopleAddress.Queries;
 using System;
@@ -59,6 +60,17 @@ namespace Person.API.Controllers
             var query = new GetPersonAddressByIdQuery(Convert.ToInt32(ID));
             var address = await _mediator.Send(query);
             return Ok(address);
+        }
+
+        [HttpDelete("{id}", Name = "DeletePersonAddress")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> DeletePersonAddress(int id)
+        {
+            var deleteCommand = new DeletePersonAddressCommandVm() { ID = id };
+            await _mediator.Send(deleteCommand);
+            return NoContent();
         }
     }
 }

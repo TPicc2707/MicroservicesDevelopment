@@ -9,5 +9,6 @@ namespace Microservices.WebAssemblyBlazor.Services
         Task<IEnumerable<Person_AddressModel>> GetAddressesByType(string type);
         Task<Person_AddressModel> GetAddressById(string ID);
         Task UpdatePersonAddress(Person_AddressModel personAddress);
+        Task DeletePersonAddress(int ID);
     }
 }

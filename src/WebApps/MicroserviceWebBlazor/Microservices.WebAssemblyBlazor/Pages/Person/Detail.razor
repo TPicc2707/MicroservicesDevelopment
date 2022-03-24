@@ -1,5 +1,6 @@
 ﻿@page "/Person/Detail/{id}"
 @inject IPersonService PersonService
+@inject IPersonAddressService PersonAddressService
 @inject NavigationManager Nav
 
 <div class="col-md-9">
@@ -11,7 +12,7 @@
 
             <div class="col-md-3 text-right">
                 <NavLink class="btn btn-primary" href="@($"/Person/Edit/{Id}")">Edit Person</NavLink>
-                <NavLink class="btn btn-danger"  style="color:white" @onclick="@Show">Delete Person</NavLink>
+                <NavLink class="btn btn-danger"  style="color:white; cursor:pointer" @onclick="@ShowPerson">Delete Person</NavLink>
             </div>
         </div>
     </p>
@@ -52,6 +53,7 @@ else
             <thead>
                 <tr>
                     <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
                     <th scope="col">Type</th>
                     <th scope="col">Street Address</th>
                     <th scope="col">City</th>
@@ -64,6 +66,7 @@ else
                 {
                     <tr>
                         <td><NavLink href="@($"/Address/Edit/{address.Id}")"><span class="oi oi-pencil"></span></NavLink></td>
+                        <td><span style="cursor:pointer" @onclick="() => ShowPersonAddress(address.Id)" class="oi oi-trash"></span></td>
                         <td>@address.Type</td>
                         <td>@address.Street</td>
                         <td>@address.City</td>
@@ -74,20 +77,39 @@ else
             </tbody>
         </table>
     </div>
-    @if (ShowDialogue)
+    @if (ShowPersonDialogue)
     {
         <div class="modal fade show d-block" id="exampleModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">  
                 <div class="modal-content">  
                     <div class="modal-header">  
-                        <h5 class="modal-title" id="titleLabel">Delete Confirmation</h5>  
-                        <button type="button" class="close" @onclick="@Close" data-dismiss="modal" aria-label="Close">  
+                        <h5 class="modal-title" id="titleLabel">Delete Person Confirmation</h5>  
+                        <button type="button" class="close" @onclick="@ClosePerson" data-dismiss="modal" aria-label="Close">  
                             <span aria-hidden="true">×</span>  
                         </button>  
                     </div>  
                     <div class="modal-body text-center">  
-                        <NavLink @onclick="@Close"  style="color:white" class="btn btn-secondary">Cancel</NavLink>
-                        <NavLink @onclick="@HandleDelete" class="btn btn-danger" style="color:white">Confirm Delete</NavLink>
+                        <NavLink @onclick="@ClosePerson" style="color:white; cursor:pointer" class="btn btn-secondary">Cancel</NavLink>
+                        <NavLink @onclick="@HandlePersonDelete" class="btn btn-danger" style="color:white; cursor:pointer">Confirm Delete</NavLink>
+                    </div>  
+                </div>  
+            </div>  
+        </div>
+    }
+    @if (ShowPersonAddressDialogue)
+    {
+        <div class="modal fade show d-block" id="exampleModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">  
+                <div class="modal-content">  
+                    <div class="modal-header">  
+                        <h5 class="modal-title" id="titleLabel">Delete Address Confirmation</h5>  
+                        <button type="button" class="close" @onclick="@ClosePersonAddress" data-dismiss="modal" aria-label="Close">  
+                            <span aria-hidden="true">×</span>  
+                        </button>  
+                    </div>  
+                    <div class="modal-body text-center">  
+                        <NavLink @onclick="@ClosePersonAddress"  style="color:white; cursor:pointer" class="btn btn-secondary">Cancel</NavLink>
+                        <NavLink @onclick="() => HandlePersonAddressDelete(AddressID)" class="btn btn-danger" style="color:white; cursor:pointer">Confirm Delete</NavLink>
                     </div>  
                 </div>  
             </div>  
@@ -100,30 +122,51 @@ else
     public string Id { get; set; }
 
     public PersonModel Person { get; set; }
-    public bool ShowDialogue { get; set; } = false;
+    public bool ShowPersonDialogue { get; set; } = false;
+    public bool ShowPersonAddressDialogue { get; set; } = false;
+    public int AddressID { get; set; }     
 
     protected override async Task OnInitializedAsync()
     {
         Person = await PersonService.GetPersonById(Id);
     }
-    void Show()
+    void ShowPerson()
     {
-        ShowDialogue = true;
+        ShowPersonDialogue = true;
         StateHasChanged();
     }
 
-    void Close()
+    void ClosePerson()
     {
-        ShowDialogue = false;
+        ShowPersonDialogue = false;
         StateHasChanged();
     }
 
-    protected async Task HandleDelete()
+    protected async Task HandlePersonDelete()
     {
         await PersonService.DeletePerson(Person.Id);
-        ShowDialogue = false;
+        ShowPersonDialogue = false;
         StateHasChanged();
         Nav.NavigateTo("/Person");
-        //Add code to redirect to People index page
+    }
+
+    void ShowPersonAddress(int ID)
+    {
+        ShowPersonAddressDialogue = true;
+        AddressID = ID;
+        StateHasChanged();
+    }
+
+    void ClosePersonAddress()
+    {
+        ShowPersonAddressDialogue = false;
+        StateHasChanged();
+    }
+    protected async Task HandlePersonAddressDelete(int ID)
+    {
+        await PersonAddressService.DeletePersonAddress(ID);
+        ShowPersonAddressDialogue = false;
+        StateHasChanged();
+        Nav.NavigateTo($"/Person/Detail/{Person.Id}", true);
     }
 }

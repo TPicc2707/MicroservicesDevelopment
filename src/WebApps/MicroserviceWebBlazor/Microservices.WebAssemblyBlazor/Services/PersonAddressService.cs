@@ -37,5 +37,12 @@ namespace Microservices.WebAssemblyBlazor.Services
                 throw new Exception("Something went wrong with calling the api.");
             _navigation.NavigateBack();
         }
+        public async Task DeletePersonAddress(int Id)
+        {
+            var response = await _client.DeleteAsync($"/api/v1/PersonAddress/{Id}");
+            if (!response.IsSuccessStatusCode)
+                throw new Exception("Something went wrong with calling the api.");
+            //_navigation.NavigateBack();
+        }
     }
 }
