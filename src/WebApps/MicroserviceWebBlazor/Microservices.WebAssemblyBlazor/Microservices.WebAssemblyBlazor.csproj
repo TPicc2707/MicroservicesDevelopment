@@ -3,6 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
+    <UserSecretsId>fe406245-274f-475e-a243-c2bef6780942</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,6 +13,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.14" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
   </ItemGroup>
 

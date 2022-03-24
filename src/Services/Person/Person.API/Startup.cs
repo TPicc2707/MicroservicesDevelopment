@@ -56,7 +56,7 @@ namespace Person.API
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
-                builder.WithOrigins("http://localhost:5002")
+                builder.WithOrigins("http://localhost:8002")
                 .AllowAnyHeader()
                 .AllowAnyMethod());
             });

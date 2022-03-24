@@ -26,7 +26,7 @@ else
 {
     <div>
         <table class="table">
-            <thead>
+            <thead class="thead-dark">
                 <tr>
                     <th scope="col">View</th>
                     <th scope="col">Edit</th>
@@ -51,7 +51,14 @@ else
                         <td>@person.FirstName</td>
                         <td>@person.MiddleInitial</td>
                         <td>@person.Gender</td>
-                        <td>@person.IsActive</td>
+                        @if(person.IsActive == true)
+                        {
+                           <td><span class="oi oi-check" style="color:green"></span></td>
+                        }
+                        else
+                        {
+                           <td><span class="oi oi-x" style="color:red"></span></td>
+                        }
                     </tr>
                 }
             </tbody>
