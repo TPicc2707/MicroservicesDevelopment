@@ -38,7 +38,14 @@ else
             <li class="list-group-item"><b><label style="padding-right:5px">Height:</label></b>@Person.Height</li>
             <li class="list-group-item"><b><label style="padding-right:5px">Eye Color:</label></b>@Person.EyeColor</li>
             <li class="list-group-item"><b><label style="padding-right:5px">Race:</label></b>@Person.Race</li>
-            <li class="list-group-item"><b><label style="padding-right:5px">Is Active:</label></b>@Person.IsActive</li>
+            @if(Person.IsActive == true)
+            {
+                <li class="list-group-item"><b><label style="padding-right:5px">Is Active:</label></b><span class="oi oi-check" style="color:green"></span></li>
+            }
+            else
+            {
+                <li class="list-group-item"><b><label style="padding-right:5px">Is Active:</label></b><span class="oi oi-x" style="color:red"></span></li>
+            }
         </ul>
     </div>
 
