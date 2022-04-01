@@ -44,7 +44,7 @@ else
                 {
                     <tr>
                         <td><NavLink href="@($"/Person/Detail/{person.Id}")"><span class="oi oi-person"></span></NavLink></td>
-                        <td><NavLink href="@($"/Person/Edit/{person.Id}")"><span class="oi oi-pencil"></span></NavLink></td>
+                        <td><NavLink href="@($"/Person/Edit/{person.Id}/Index")"><span class="oi oi-pencil"></span></NavLink></td>
                         <td><span style="cursor:pointer" @onclick="() => Show(person.Id)" class="oi oi-trash"></span></td>
                         <td>@person.Rank</td>
                         <td>@person.LastName</td>

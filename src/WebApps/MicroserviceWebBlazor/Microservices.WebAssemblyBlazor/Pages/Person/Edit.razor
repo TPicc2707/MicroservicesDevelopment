@@ -1,95 +1,121 @@
-﻿@page "/Person/Edit/{id}"
+﻿@page "/Person/Edit/{id}/{sourcePage}"
+@inject PageHistoryState PageHistoryState
 @inject IPersonService PersonService
-@inject Navigation Nav
+@inject NavigationManager Nav
 
-<div class="col-md-12">
-    <p>
-        <div class="row">
-            <div class="col-md-12 text-left">
-                <NavLink class="btn btn-secondary" href="@("/Person")">Back</NavLink>
+@if(Person == null)
+{
+    <span>Loading person...</span>
+}
+else
+{
+    <div class="col-md-12">
+        <p>
+            <div class="row">
+                <div class="col-md-12 text-left">
+                    @if (PageHistoryState.CanGoBack())
+                    {
+                        <a class="btn btn-secondary" href="@PageHistoryState.GetGoBackPage()">Back</a>
+                    }
+                    else
+                    {
+                        <NavLink class="btn btn-secondary" href="@("/Person")">Back</NavLink>
+                    }
+                </div>
+            </div>
+        </p>
+    </div>
+
+    <h3>Edit Person</h3>
+
+    <EditForm Model="@Person" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator/>
+        <ValidationSummary />
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label for="rank"><b>Rank</b></label>
+                <InputSelect class="form-control" id="rank" @bind-Value="Person.Rank"> 
+                    @foreach(var rank in Ranks)
+                    {
+                        <option value="@rank">@rank</option>
+                    }
+                </InputSelect>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="firstName"><b>First Name</b></label>
+                <InputText class="form-control" id="firstName" placeholder="First Name" @bind-Value="Person.FirstName"/>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="middleInitial"><b>MI</b></label>
+                <InputText class="form-control" id="middleInitial" placeholder="MI" @bind-Value="Person.MiddleInitial"/>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="lastName"><b>Last Name</b></label>
+                <InputText class="form-control" id="lastName" placeholder="Last Name" @bind-Value="Person.LastName"/>
             </div>
         </div>
-    </p>
-</div>
-
-<h3>Edit Person</h3>
-
-<EditForm Model="@Person" OnValidSubmit="@HandleValidSubmit">
-    <DataAnnotationsValidator/>
-    <ValidationSummary />
-    <div class="form-row">
-        <div class="form-group col-md-2">
-            <label for="rank"><b>Rank</b></label>
-            <InputSelect class="form-control" id="rank" @bind-Value="Person.Rank"> 
-                @foreach(var rank in Ranks)
-                {
-                    <option value="@rank">@rank</option>
-                }
-            </InputSelect>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="gender"><b>Gender</b></label>
+                <InputSelect class="form-control" id="gender" @bind-Value="Person.Gender">
+                    @foreach(var gender in Genders)
+                    {
+                        <option value="@gender">@gender</option>
+                    }
+                </InputSelect>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="height"><b>Height</b></label>
+                <InputNumber class="form-control" id="height" placeholder="Height" @bind-Value="Person.Height"/>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="weight"><b>Weight</b></label>
+                <InputNumber class="form-control" id="weight" placeholder="Weight" @bind-Value="Person.Weight"/>
+            </div>
         </div>
-        <div class="form-group col-md-4">
-            <label for="firstName"><b>First Name</b></label>
-            <InputText class="form-control" id="firstName" placeholder="First Name" @bind-Value="Person.FirstName"/>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="eyeColor"><b>EyeColor</b></label>
+                <InputText class="form-control" id="eyeColor" placeholder="Eye Color" @bind-Value="Person.EyeColor" />
+            </div>
+            <div class="form-group col-md-4">
+                <label for="race"><b>Race</b></label>
+                <InputSelect class="form-control" id="race" @bind-Value="Person.Race">
+                    @foreach(var race in Races)
+                    {
+                        <option value="@race">@race</option>
+                    }
+                </InputSelect>
+            </div>
+            <div class="form-group col-md-1">
+                <label for="isActive"><b>Is Active</b></label>
+                <InputCheckbox class="form-control" id="isActive" @bind-Value="Person.IsActive"/>
+            </div>
         </div>
-        <div class="form-group col-md-2">
-            <label for="middleInitial"><b>MI</b></label>
-            <InputText class="form-control" id="middleInitial" placeholder="MI" @bind-Value="Person.MiddleInitial"/>
-        </div>
-        <div class="form-group col-md-4">
-            <label for="lastName"><b>Last Name</b></label>
-            <InputText class="form-control" id="lastName" placeholder="Last Name" @bind-Value="Person.LastName"/>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            <label for="gender"><b>Gender</b></label>
-            <InputSelect class="form-control" id="gender" @bind-Value="Person.Gender">
-                @foreach(var gender in Genders)
-                {
-                    <option value="@gender">@gender</option>
-                }
-            </InputSelect>
-        </div>
-        <div class="form-group col-md-4">
-            <label for="height"><b>Height</b></label>
-            <InputNumber class="form-control" id="height" placeholder="Height" @bind-Value="Person.Height"/>
-        </div>
-        <div class="form-group col-md-4">
-            <label for="weight"><b>Weight</b></label>
-            <InputNumber class="form-control" id="weight" placeholder="Weight" @bind-Value="Person.Weight"/>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            <label for="eyeColor"><b>EyeColor</b></label>
-            <InputText class="form-control" id="eyeColor" placeholder="Eye Color" @bind-Value="Person.EyeColor" />
-        </div>
-        <div class="form-group col-md-4">
-            <label for="race"><b>Race</b></label>
-            <InputSelect class="form-control" id="race" @bind-Value="Person.Race">
-                @foreach(var race in Races)
-                {
-                    <option value="@race">@race</option>
-                }
-            </InputSelect>
-        </div>
-        <div class="form-group col-md-1">
-            <label for="isActive"><b>Is Active</b></label>
-            <InputCheckbox class="form-control" id="isActive" @bind-Value="Person.IsActive"/>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</EditForm>
-
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </EditForm>
+}
 
 @code {
     [Parameter]
     public string Id { get; set; }
 
+    [Parameter]
+    public string SourcePage { get; set; } = string.Empty;
+
     public PersonModel Person { get; set; } = new PersonModel();
 
     protected override async Task OnInitializedAsync()
     {
+        if(SourcePage == "Details")
+        {
+            PageHistoryState.AddPageToHistory($"/Person/Detail/{Id}");
+        }
+        else
+        {
+            PageHistoryState.AddPageToHistory("/Person");
+        }
+
         Person = await PersonService.GetPersonById(Id);
     }
 
@@ -138,6 +164,15 @@
     private async Task HandleValidSubmit()
     {
         await PersonService.UpdatePerson(Person);
-        Nav.NavigateBack();
+        var URL = "";
+        if (PageHistoryState.CanGoBack())
+        {
+            URL = PageHistoryState.GetGoBackPage();
+            Nav.NavigateTo(URL);
+        }
+        else
+        {
+            Nav.NavigateTo("/Person");
+        }
     }
 }

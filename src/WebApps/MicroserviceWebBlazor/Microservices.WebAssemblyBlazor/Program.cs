@@ -20,6 +20,7 @@ namespace Microservices.WebAssemblyBlazor
             builder.RootComponents.Add<App>("#app");
             builder.Services.AddSingleton<Navigation>();
 
+            builder.Services.AddSingleton<PageHistoryState>();
             builder.Services.AddHttpClient<IPersonService, PersonService>(client =>
             {
                 client.BaseAddress = new Uri("http://localhost:8000");

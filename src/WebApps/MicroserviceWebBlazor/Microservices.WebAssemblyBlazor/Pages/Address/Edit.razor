@@ -131,6 +131,6 @@
     private async Task HandleValidSubmit()
     {
         await PersonAddressService.UpdatePersonAddress(PersonAddress);
-        NavManager.NavigateTo($"/person/Detail/{PersonAddress.Person_Id}");
+        NavManager.NavigateTo($"/Person/Detail/{PersonAddress.Person_Id}");
     }
 }

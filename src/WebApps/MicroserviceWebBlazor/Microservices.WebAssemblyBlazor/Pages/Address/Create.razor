@@ -131,6 +131,6 @@
         Addresses.PersonAddresses.Add(Address);
         await AddressService.UpdateAddress(Addresses);
         await AddressService.CreateAddress(Addresses.PersonID);
-        NavManager.NavigateTo($"/person/Detail/{Addresses.PersonID}");
+        NavManager.NavigateTo($"/Person/Detail/{Addresses.PersonID}");
     }
 }

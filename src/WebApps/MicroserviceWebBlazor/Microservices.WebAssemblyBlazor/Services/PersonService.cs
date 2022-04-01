@@ -55,7 +55,7 @@ namespace Microservices.WebAssemblyBlazor.Services
             var response = await _client.PutAsJson($"/api/v1/Person", person);
             if (!response.IsSuccessStatusCode)
                 throw new Exception("Something went wrong with calling the api.");
-            _navigation.NavigateBack();
+            //_navigation.NavigateBack();
         }
 
         public async Task DeletePerson(int Id)

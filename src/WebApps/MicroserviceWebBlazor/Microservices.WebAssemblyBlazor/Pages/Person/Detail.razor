@@ -11,7 +11,7 @@
             </div>
 
             <div class="col-md-3 text-right">
-                <NavLink class="btn btn-primary" href="@($"/Person/Edit/{Id}")">Edit Person</NavLink>
+                <NavLink class="btn btn-primary" href="@($"/Person/Edit/{Id}/Details")">Edit Person</NavLink>
                 <NavLink class="btn btn-danger"  style="color:white; cursor:pointer" @onclick="@ShowPerson">Delete Person</NavLink>
             </div>
         </div>
@@ -172,8 +172,8 @@ else
     protected async Task HandlePersonAddressDelete(int ID)
     {
         await PersonAddressService.DeletePersonAddress(ID);
+        Person = await PersonService.GetPersonById(Id);
         ShowPersonAddressDialogue = false;
         StateHasChanged();
-        Nav.NavigateTo($"/Person/Detail/{Person.Id}", true);
     }
 }
