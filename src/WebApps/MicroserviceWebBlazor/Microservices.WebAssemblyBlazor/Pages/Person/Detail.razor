@@ -135,6 +135,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        await Task.Delay(500);
         Person = await PersonService.GetPersonById(Id);
     }
     void ShowPerson()
