@@ -14,27 +14,27 @@ namespace Person.Application.Features.People.Commands.DeletePerson
 {
     public class DeletePersonCommandHandler : IRequestHandler<DeletePersonCommandVm>
     {
-        private readonly IPersonRepository _personRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ILogger<DeletePersonCommandVm> _logger;
 
-        public DeletePersonCommandHandler(IPersonRepository personRepository, IMapper mapper,
+        public DeletePersonCommandHandler(IUnitOfWork unitOfWork, IMapper mapper,
              ILogger<DeletePersonCommandVm> logger)
         {
-            _personRepository = personRepository ?? throw new ArgumentNullException(nameof(personRepository));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task<Unit> Handle(DeletePersonCommandVm request, CancellationToken cancellationToken)
         {
-            var personDelete = await _personRepository.GetByIdAsync(request.ID);
+            var personDelete = await _unitOfWork.People.GetByIdAsync(request.ID);
             if (personDelete == null)
             {
                 throw new NotFoundException(nameof(Domain.Entities.Person), request.ID);
             }
 
-            await _personRepository.DeleteAsync(personDelete);
+            await _unitOfWork.People.DeleteAsync(personDelete);
 
             _logger.LogInformation($"Person {personDelete.ID} was successfully deleted.");
 

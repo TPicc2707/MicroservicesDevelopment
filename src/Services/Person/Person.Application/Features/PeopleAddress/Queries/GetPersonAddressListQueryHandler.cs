@@ -12,18 +12,18 @@ namespace Person.Application.Features.PeopleAddress.Queries
 {
     public class GetPersonAddressListQueryHandler : IRequestHandler<GetPersonAddressListQuery, List<PersonAddressVm>>
     {
-        private readonly IPersonAddressRepository _personAddressRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetPersonAddressListQueryHandler(IPersonAddressRepository personAddressRepository, IMapper mapper)
+        public GetPersonAddressListQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _personAddressRepository = personAddressRepository ?? throw new ArgumentNullException(nameof(personAddressRepository));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public async Task<List<PersonAddressVm>> Handle(GetPersonAddressListQuery request, CancellationToken cancellationToken)
         {
-            var addresses = await _personAddressRepository.GetAddressesByType(request.Type);
+            var addresses = await _unitOfWork.Person_Addresses.GetAddressesByType(request.Type);
 
             return _mapper.Map<List<PersonAddressVm>>(addresses);
         }

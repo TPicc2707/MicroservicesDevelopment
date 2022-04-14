@@ -12,18 +12,18 @@ namespace Person.Application.Features.People.Queries
 {
     public class GetPersonByLastNameListQueryHandler : IRequestHandler<GetPersonByLastNameListQuery, List<PersonViewModel>>
     {
-        private readonly IPersonRepository _personRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetPersonByLastNameListQueryHandler(IPersonRepository personRepository, IMapper mapper)
+        public GetPersonByLastNameListQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _personRepository = personRepository ?? throw new ArgumentNullException(nameof(personRepository));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public async Task<List<PersonViewModel>> Handle(GetPersonByLastNameListQuery request, CancellationToken cancellationToken)
         {
-            var people = await _personRepository.GetPeopleByLastName(request.LastName);
+            var people = await _unitOfWork.People.GetPeopleByLastName(request.LastName);
 
             return _mapper.Map<List<PersonViewModel>>(people);
         }

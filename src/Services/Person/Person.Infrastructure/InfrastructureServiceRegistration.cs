@@ -18,7 +18,8 @@ namespace Person.Infrastructure
         {
             services.AddDbContext<PersonContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("PersonMicroServicesConnectionString")));
-
+            
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IPersonAddressRepository, PersonAddressRepository>();

@@ -13,18 +13,18 @@ namespace Person.Application.Features.People.Queries
 {
     public class GetActivePersonListQueryHandler : IRequestHandler<GetActivePersonListQuery, List<PersonViewModel>>
     {
-        private readonly IPersonRepository _personRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetActivePersonListQueryHandler(IPersonRepository personRepository, IMapper mapper)
+        public GetActivePersonListQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _personRepository = personRepository ?? throw new ArgumentNullException(nameof(personRepository));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public async Task<List<PersonViewModel>> Handle(GetActivePersonListQuery request, CancellationToken cancellationToken)
         {
-            var personIsActiveList = await _personRepository.GetActivePeople(request.IsActive);
+            var personIsActiveList = await _unitOfWork.People.GetActivePeople(request.IsActive);
 
             return _mapper.Map<List<PersonViewModel>>(personIsActiveList);
         }

@@ -13,14 +13,14 @@ namespace Person.Application.Features.People.Commands.CreatePerson
 {
     public class CreatePersonCommandHandler : IRequestHandler<CreatePersonCommandVm, int>
     {
-        private readonly IPersonRepository _personRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ILogger<CreatePersonCommandHandler> _logger;
 
-        public CreatePersonCommandHandler(IPersonRepository personRepository, IMapper mapper,
+        public CreatePersonCommandHandler(IUnitOfWork unitOfWork, IMapper mapper,
              ILogger<CreatePersonCommandHandler> logger)
         {
-            _personRepository = personRepository ?? throw new ArgumentNullException(nameof(personRepository));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
@@ -28,7 +28,7 @@ namespace Person.Application.Features.People.Commands.CreatePerson
         public async Task<int> Handle(CreatePersonCommandVm request, CancellationToken cancellationToken)
         {
             var person = _mapper.Map<Domain.Entities.Person>(request);
-            var newPerson = await _personRepository.AddAsync(person);
+            var newPerson = await _unitOfWork.People.AddAsync(person);
 
             _logger.LogInformation($"New Person {person.ID} was successfully created.");
 

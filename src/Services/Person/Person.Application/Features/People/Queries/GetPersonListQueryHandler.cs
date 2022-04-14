@@ -12,18 +12,18 @@ namespace Person.Application.Features.People.Queries
 {
     public class GetPersonListQueryHandler : IRequestHandler<GetPersonListQuery, PersonViewModel>
     {
-        private readonly IPersonRepository _personRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetPersonListQueryHandler(IPersonRepository personRepository, IMapper mapper)
+        public GetPersonListQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _personRepository = personRepository ?? throw new ArgumentNullException(nameof(personRepository));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public async Task<PersonViewModel> Handle(GetPersonListQuery request, CancellationToken cancellationToken)
         {
-            var person = await _personRepository.GetPersonById(request.Id);
+            var person = await _unitOfWork.People.GetPersonById(request.Id);
             return _mapper.Map<PersonViewModel>(person);
         }
     }

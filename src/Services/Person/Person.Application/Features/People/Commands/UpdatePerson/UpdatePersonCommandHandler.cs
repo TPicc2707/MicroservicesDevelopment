@@ -14,21 +14,21 @@ namespace Person.Application.Features.People.Commands.UpdatePerson
 {
     public class UpdatePersonCommandHandler : IRequestHandler<UpdatePersonCommandVm>
     {
-        private readonly IPersonRepository _personRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ILogger<UpdatePersonCommandHandler> _logger;
 
-        public UpdatePersonCommandHandler(IPersonRepository personRepository, IMapper mapper,
+        public UpdatePersonCommandHandler(IUnitOfWork unitOfWork, IMapper mapper,
              ILogger<UpdatePersonCommandHandler> logger)
         {
-            _personRepository = personRepository ?? throw new ArgumentNullException(nameof(personRepository));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task<Unit> Handle(UpdatePersonCommandVm request, CancellationToken cancellationToken)
         {
-            var personUpdate = await _personRepository.GetByIdAsync(request.ID);
+            var personUpdate = await _unitOfWork.People.GetByIdAsync(request.ID);
             if(personUpdate == null)
             {
                 throw new NotFoundException(nameof(Domain.Entities.Person), request.ID);
@@ -36,7 +36,7 @@ namespace Person.Application.Features.People.Commands.UpdatePerson
 
             _mapper.Map(request, personUpdate, typeof(UpdatePersonCommandVm), typeof(Domain.Entities.Person));
 
-            await _personRepository.UpdateAsync(personUpdate);
+            await _unitOfWork.People.UpdateAsync(personUpdate);
 
             _logger.LogInformation($"Person {personUpdate.ID} was successfully updated.");
 
